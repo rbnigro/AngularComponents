@@ -1,0 +1,37 @@
+<div class="user-details">
+  <mat-list>
+    <mat-list-item>
+      <span class="titulo">Detalhes do Usuário</span>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <span class="tituloDetalhe">Nome: </span><span>{{ user.nome | dashIfEmpty}}</span>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <span class="tituloDetalhe">Email: </span><span>{{ user.email | dashIfEmpty }}</span>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <span class="tituloDetalhe">Telefone: </span><span>{{ user.telefone | phone }}</span>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <span class="tituloDetalhe">Endereço: </span><span>{{ user.endereco | address }}</span>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <span class="tituloDetalhe">Status: </span><span>{{ user.ativo | dashIfEmpty | status }}</span>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <span class="tituloDetalhe">Função: </span><span>{{ user.funcao | dashIfEmpty }}</span>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <span class="tituloDetalhe">Data de Cadastro: </span><span>{{ user.dataCadastro | date: 'dd/MM/yyyy' | dashIfEmpty}}</span>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+  </mat-list>
+</div>

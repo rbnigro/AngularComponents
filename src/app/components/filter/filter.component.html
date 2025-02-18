@@ -1,0 +1,39 @@
+<div class="filter">
+  <div class="form">
+    <div class="form__name">
+      <mat-form-field class="example-full-width">
+        <mat-label>Nome</mat-label>
+        <input matInput placeholder="Digite o Nome" [(ngModel)] = "filterOptions.name" />
+      </mat-form-field>
+    </div>
+
+    <div class="form__date-picker">
+      <!-- <form [formGroup]="range!"> -->
+        <mat-form-field appearance="fill">
+          <mat-label>Data de Cadastro</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input matStartDate formControlName="inicio" placeholder="Data Inicial" [(ngModel)]="filterOptions.startDate" (ngModelChange)="dateSelected($event)" />
+            <input matEndDate formControlName="fim" placeholder="Data Final">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+      <!-- </form> -->
+    </div>
+
+    <div class="form__status">
+      <mat-form-field>
+        <mat-label>Status</mat-label>
+        <mat-select>
+          @for (food of foods; track food) {
+          <mat-option [value]="food.value"> {{ food.viewValue }} </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form__button">
+      <button mat-raised-button>Filtrar</button>
+    </div>
+  </div>
+</div>
