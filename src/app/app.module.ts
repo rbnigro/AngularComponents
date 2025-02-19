@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [ AppComponent ],
@@ -15,7 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     BrowserAnimationsModule,
     ComponentsModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    ReactiveFormsModule,
    ],
    providers: [
      { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }

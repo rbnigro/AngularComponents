@@ -1,32 +1,53 @@
-import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { IFilterOptions } from '../../interfaces/user/filter-options.interface';
 
 @Component({
   selector: 'app-filter',
   standalone: false,
   templateUrl: './filter.component.html',
-  styleUrl: './filter.component.scss'
+  styleUrl: './filter.component.scss',
 })
+export class FilterComponent implements OnInit {
+  range!: FormGroup;
 
-export class FilterComponent {
-  // myGroup: FormGroup;
   filterOptions: IFilterOptions = {
     name: '',
-    startDate: '',
-    endDate: '',
+    startDate: undefined,
+    endDate: undefined,
     status: '',
   };
 
-  dateSelected(date: any) {
-    console.log(date);
-   // console.log(date,getMonth());
+  // this.range.valueChanges.subscribe((value) => {
+  //   this.filterOptions.startDate = value.inicio ?? undefined;
+  //   this.filterOptions.endDate = value.fim ?? undefined;
+  // });
+
+  ngOnInit() {
+    this.range = new FormGroup({
+      inicio: new FormControl<Date | null>(null),
+      fim: new FormControl<Date | null>(null),
+    });
+
+    this.range.valueChanges.subscribe(value => {
+      console.log("Data Inicial:", value.inicio);
+      console.log("Data Final:", value.fim);
+
+      this.filterOptions.startDate = value.inicio ?? undefined;
+      this.filterOptions.endDate = value.fim ?? undefined;
+    });
   }
 
+  dateSelected(event: Date | null, field: 'inicio' | 'fim') {
+    console.log(`Alteração detectada no campo ${field}:`, event);
 
-// export class FilterComponent implements OnInit {
-range!: FormGroup;
-foods = [
+    const currentValue = this.range.get(field)?.value;
+    if (currentValue !== event) {
+      this.range.get(field)?.setValue(event);
+    }
+  }
+
+  status = [
     {
       value: 'Sim',
       viewValue: 'Ativo',
@@ -34,12 +55,6 @@ foods = [
     {
       value: 'Não',
       viewValue: 'Inativo',
-    }
-];
-  // ngOnInit() {
-  //   this.range = new FormGroup({
-  //     start: new FormControl(''),
-  //     end: new FormControl('')
-  //   });
-  // }
+    },
+  ];
 }
