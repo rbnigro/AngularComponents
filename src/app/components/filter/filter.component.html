@@ -3,7 +3,12 @@
     <div class="form__name">
       <mat-form-field class="example-full-width">
         <mat-label>Nome</mat-label>
-        <input matInput placeholder="Digite o Nome" [(ngModel)] = "filterOptions.name" />
+        <input
+           matInput
+           placeholder="Digite o Nome"
+           [(ngModel)] = "filterOptions.name"
+           (input)="validateName($event)"
+         />
       </mat-form-field>
     </div>
 

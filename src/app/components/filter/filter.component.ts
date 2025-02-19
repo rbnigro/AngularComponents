@@ -60,6 +60,12 @@ export class FilterComponent implements OnInit {
     };
 
     this.range.reset();
+    this.onFilter();
   }
 
+  validateName(event: any) {
+    const cleanedValue = event.target.value.replace(/[^a-zA-ZÀ-ÖØ-öø-ÿ\s]/g, '');
+    this.filterOptions.name = cleanedValue;
+    event.target.value = cleanedValue;
+  }
 }

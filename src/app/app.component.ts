@@ -36,20 +36,34 @@ export class AppComponent implements OnInit {
     let filteredList: IUser[] = [];
 
     filteredList = this.filteredUsersListByName(filterOptions.name, usersList);
+    filteredList = this.filteredUsersListByStatus(filterOptions.status, filteredList);
 
     return filteredList;
   }
 
   filteredUsersListByName(name: string | undefined, usersList: IUser[]): IUser[] {
     const NAME_NOT_TYPED = name === undefined;
-    const removeAccents = (str: string) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
     if (NAME_NOT_TYPED) {
       return usersList;
     }
 
+    const removeAccents = (str: string) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     const filteredList = usersList.filter((user) =>
       removeAccents(user.nome.toLowerCase()).includes(removeAccents(name.toLowerCase())));
+
+    return filteredList;
+  }
+
+  filteredUsersListByStatus(status: boolean | undefined, usersList: IUser[]): IUser[] {
+    const STATUS_NOT_SELECTED = status === undefined;
+
+    if (STATUS_NOT_SELECTED) {
+      return usersList;
+    }
+
+    const filteredList = usersList.filter((user) =>
+      user.ativo === status);
 
     return filteredList;
   }
