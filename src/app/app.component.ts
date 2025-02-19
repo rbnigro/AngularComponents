@@ -11,12 +11,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   usersList: IUser[] = [];
+  usersListFiltered: IUser[] = [];
   userSelected: IUser = {} as IUser;
   showUSerDetails: boolean = false;
 
   ngOnInit() {
     setTimeout(() => {
-      this.usersList = UsersList;
+      this.usersList = UsersList; // UsersList simula a chamada HTTP
+      this.usersListFiltered = this.usersList;
     }, 5000);
   }
 
@@ -26,6 +28,29 @@ export class AppComponent implements OnInit {
   }
 
   onFilter(filterOptions: IFilterOptions) {
-    console.log(filterOptions);
+    // console.log(filterOptions);
+    this.usersListFiltered = this.filterUsersList(filterOptions, this.usersList);
+  }
+
+  filterUsersList(filterOptions: IFilterOptions, usersList: IUser[]): IUser[] {
+    let filteredList: IUser[] = [];
+
+    filteredList = this.filteredUsersListByName(filterOptions.name, usersList);
+
+    return filteredList;
+  }
+
+  filteredUsersListByName(name: string | undefined, usersList: IUser[]): IUser[] {
+    const NAME_NOT_TYPED = name === undefined;
+    const removeAccents = (str: string) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+    if (NAME_NOT_TYPED) {
+      return usersList;
+    }
+
+    const filteredList = usersList.filter((user) =>
+      removeAccents(user.nome.toLowerCase()).includes(removeAccents(name.toLowerCase())));
+
+    return filteredList;
   }
 }

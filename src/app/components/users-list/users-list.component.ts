@@ -16,7 +16,7 @@ export class UsersListComponent {
   @Output('userSelected') userSelectedEmitt = new EventEmitter<IUser>();
 
   onUserSelected(user: IUser) {
-    console.log('user', user);
+    // console.log('user', user);
     this.userSelectedEmitt.emit(user);
   }
 }
