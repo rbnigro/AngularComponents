@@ -8,14 +8,12 @@
     </div>
 
     <div class="form__date-picker">
-       <form [formGroup]="range">
+       <form name="formRange" [formGroup]="range">
         <mat-form-field appearance="fill">
           <mat-label>Data de Cadastro</mat-label>
           <mat-date-range-input [rangePicker]="picker">
             <input matStartDate formControlName="inicio" placeholder="Data Inicial" />
             <input matEndDate formControlName="fim" placeholder="Data Final" >
-            <!-- <input matStartDate formControlName="inicio" placeholder="Data Inicial" [(ngModel)]="filterOptions.startDate" (ngModelChange)="dateSelected($event, 'inicio')" /> -->
-            <!-- <input matEndDate formControlName="fim" placeholder="Data Final" [(ngModel)]="filterOptions.endDate"  (ngModelChange)="dateSelected($event, 'fim')"> -->
           </mat-date-range-input>
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-date-range-picker #picker></mat-date-range-picker>
@@ -26,16 +24,16 @@
     <div class="form__status">
       <mat-form-field>
         <mat-label>Status</mat-label>
-        <mat-select>
-          @for (itemStatus of status; track itemStatus) {
-          <mat-option [value]="itemStatus.value"> {{ itemStatus.viewValue }} </mat-option>
+        <mat-select [(ngModel)]="filterOptions.status">
+          @for (itemStatus of statusList; track itemStatus) {
+          <mat-option [value]="itemStatus.value"> {{ itemStatus.description }} </mat-option>
           }
         </mat-select>
       </mat-form-field>
     </div>
 
     <div class="form__button">
-      <button mat-raised-button>Filtrar</button>
+      <button mat-raised-button (click)="onFilter()">Filtrar</button>
     </div>
   </div>
 </div>

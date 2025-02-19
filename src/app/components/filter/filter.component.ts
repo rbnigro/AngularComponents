@@ -12,16 +12,11 @@ export class FilterComponent implements OnInit {
   range!: FormGroup;
 
   filterOptions: IFilterOptions = {
-    name: '',
+    name: undefined,
     startDate: undefined,
     endDate: undefined,
-    status: '',
+    status: undefined,
   };
-
-  // this.range.valueChanges.subscribe((value) => {
-  //   this.filterOptions.startDate = value.inicio ?? undefined;
-  //   this.filterOptions.endDate = value.fim ?? undefined;
-  // });
 
   ngOnInit() {
     this.range = new FormGroup({
@@ -30,31 +25,26 @@ export class FilterComponent implements OnInit {
     });
 
     this.range.valueChanges.subscribe(value => {
-      console.log("Data Inicial:", value.inicio);
-      console.log("Data Final:", value.fim);
+      // console.log("Data Inicial = ", value.inicio);
+      // console.log("Data Final = ", value.fim);
 
       this.filterOptions.startDate = value.inicio ?? undefined;
       this.filterOptions.endDate = value.fim ?? undefined;
     });
   }
 
-  dateSelected(event: Date | null, field: 'inicio' | 'fim') {
-    console.log(`Alteração detectada no campo ${field}:`, event);
-
-    const currentValue = this.range.get(field)?.value;
-    if (currentValue !== event) {
-      this.range.get(field)?.setValue(event);
-    }
-  }
-
-  status = [
+  statusList = [
     {
-      value: 'Sim',
-      viewValue: 'Ativo',
+      value: true,
+      description: 'Ativo',
     },
     {
-      value: 'Não',
-      viewValue: 'Inativo',
+      value: false,
+      description: 'Inativo',
     },
   ];
+
+  onFilter() {
+    console.log(this.filterOptions);
+  }
 }
