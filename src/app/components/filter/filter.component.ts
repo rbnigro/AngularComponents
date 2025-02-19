@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { IFilterOptions } from '../../interfaces/user/filter-options.interface';
 
@@ -44,7 +44,22 @@ export class FilterComponent implements OnInit {
     },
   ];
 
+  @Output('onFilter') onFilterEmitt = new EventEmitter<IFilterOptions>();
+
   onFilter() {
-    console.log(this.filterOptions);
+    // console.log(this.filterOptions);
+    this.onFilterEmitt.emit(this.filterOptions);
   }
+
+  clear() {
+    this.filterOptions = {
+      name: undefined,
+      startDate: undefined,
+      endDate: undefined,
+      status: undefined,
+    };
+
+    this.range.reset();
+  }
+
 }
